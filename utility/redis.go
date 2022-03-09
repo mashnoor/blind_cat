@@ -2,7 +2,6 @@ package utility
 
 import (
 	"context"
-	"fmt"
 	"github.com/mashnoor/blind_cat/settings"
 	"strconv"
 )
@@ -17,8 +16,8 @@ func RedisHGet(serviceName string, param string) int {
 	client := settings.GetRedisClient()
 	val, err := client.HGet(context.Background(), serviceName, param).Result()
 	if err != nil {
-		fmt.Println("error reading")
-		return 0
+		panic(err)
+
 	}
 	i, err := strconv.Atoi(val)
 	if err != nil {

@@ -1,5 +1,6 @@
 package structures
 
 const (
-	ErrorCounter string = "error_counter"
+	ErrorCounter         string = "error_counter"
+	LastNotificationSent int    = 0
 )
