@@ -6,6 +6,8 @@ import (
 	"github.com/mashnoor/blind_cat/structures"
 	"gopkg.in/yaml.v2"
 	"os"
+	"sync"
+	"time"
 )
 
 func check(e error) {
@@ -21,11 +23,21 @@ func readConfigFile() string {
 	return string(dat)
 }
 
-func checkHealth() {
+func checkHealth(service structures.Service, wg *sync.WaitGroup) {
+	for true {
+		resp, err := requests.Get(service.Endpoint)
+		check(err)
+		fmt.Println(resp.R.StatusCode)
+
+		time.Sleep(time.Second * 5)
+	}
+
+	wg.Done()
 
 }
 
 func main() {
+	var wg sync.WaitGroup
 
 	config := readConfigFile()
 
@@ -34,12 +46,12 @@ func main() {
 	check(err)
 
 	for _, service := range monitorServices.Services {
-		if service.Method == structures.GET {
-			resp, err := requests.Get(service.Endpoint)
-			check(err)
-			fmt.Println(resp.R.StatusCode)
-		}
+		fmt.Println(service.Endpoint)
+		go checkHealth(service, &wg)
+		wg.Add(1)
 
 	}
+
+	wg.Wait()
 
 }

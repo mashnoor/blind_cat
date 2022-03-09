@@ -1,17 +1,19 @@
 services:
   - name: abc
     endpoint: http://192.168.10.120
-    method: POST
+    method: GET
     body:
     maxErrorCount: 3
     checkInterval: 100
     consecutiveNotificationDelay: 100
     slackUrl:
+    timeout: 30
 
   - name: evident
     endpoint: https://www.evidentbd.com/
     method: GET
     maxErrorCount: 3
-    checkInterval: 100
+    checkInterval: 5
     consecutiveNotificationDelay: 100
     slackUrl:
+    timeout: 30

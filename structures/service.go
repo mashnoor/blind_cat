@@ -11,7 +11,8 @@ type Service struct {
 	Method                       string `yaml:"method"`
 	Body                         string `yaml:"body"`
 	MaxErrorCount                int    `yaml:"MaxErrorCount"`
-	CheckInterval                int    `yaml:"checkInterval"`
+	CheckInterval                uint64 `yaml:"checkInterval"`
 	ConsecutiveNotificationDelay int    `yaml:"consecutiveNotificationDelay"`
 	SlackUrl                     string `yaml:"slackUrl"`
+	Timeout                      int    `yaml:"timeout"`
 }
