@@ -1,0 +1,6 @@
+services:
+  - name: abc
+    endpoint: http://192.168.10.120
+    method: POST
+    max_error_count: 3
+    monitor_interval: 100
