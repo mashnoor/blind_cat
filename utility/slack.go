@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/asmcos/requests"
+	"github.com/mashnoor/blind_cat/settings"
 )
 
 func SendSlackMessage(serviceName string, down bool, errorCount int64) {
@@ -37,7 +38,7 @@ func SendSlackMessage(serviceName string, down bool, errorCount int64) {
 
 	jsonStr, err := json.Marshal(slackMsg)
 
-	hookUrl := ""
+	hookUrl := settings.SystemAppConfig.SlackUrl
 	resp, err := requests.PostJson(hookUrl, string(jsonStr))
 	fmt.Println(string(jsonStr))
 	if err != nil {

@@ -11,7 +11,7 @@ type Service struct {
 	Name                         string        `yaml:"name"`
 	Endpoint                     string        `yaml:"endpoint"`
 	Method                       string        `yaml:"method"`
-	Body                         string        `yaml:"body"`
+	JsonBody                     string        `yaml:"jsonBody"`
 	MaxErrorCount                int64         `yaml:"maxErrorCount"`
 	CheckInterval                time.Duration `yaml:"checkInterval"`
 	ConsecutiveNotificationDelay int64         `yaml:"consecutiveNotificationDelay"`

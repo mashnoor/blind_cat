@@ -9,9 +9,9 @@ var (
 	rdb *redis.Client
 )
 
-func InitRedis(host, port string) {
+func InitRedis() {
 	rdb = redis.NewClient(&redis.Options{
-		Addr: fmt.Sprintf("%s:%s", host, port),
+		Addr: fmt.Sprintf("%s:%s", SystemAppConfig.RedisHost, SystemAppConfig.RedisPort),
 	})
 
 }

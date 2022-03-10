@@ -58,16 +58,37 @@ func notificationDecision(service *structures.Service) {
 	}
 	errorCrossedThreshold := getErrorCounter(service) > service.MaxErrorCount
 	if errorCrossedThreshold && timeCrossedThreshold {
-		utility.SendSlackMessage(service.Name, true, getErrorCounter(service))
-		fmt.Println("Time to send notification")
+		//utility.SendSlackMessage(service.Name, true, getErrorCounter(service))
+		fmt.Println("----- SEND DOWN NOTIFICATION ----------")
 		updateLastNotificationSentTime(service)
 	}
 }
 
 func decideUpMsg(service *structures.Service) {
 	if getErrorCounter(service) > 0 {
-		utility.SendSlackMessage(service.Name, false, 0)
+		fmt.Println("------ SENDING UP NOTIFICATION -------------")
+		//utility.SendSlackMessage(service.Name, false, 0)
 	}
+}
+
+func isFailedRequest(service *structures.Service) bool {
+	if service.Method == structures.GET {
+		resp, err := requests.Get(service.Endpoint)
+		if err != nil || resp.R.StatusCode > 400 {
+			return true
+		}
+
+		return false
+	} else {
+		resp, err := requests.PostJson(service.Endpoint, service.JsonBody)
+		if err != nil || resp.R.StatusCode > 400 {
+
+			return true
+		}
+
+	}
+
+	return false
 }
 
 func checkHealth(service *structures.Service, wg *sync.WaitGroup) {
@@ -78,8 +99,8 @@ func checkHealth(service *structures.Service, wg *sync.WaitGroup) {
 			"error_count":       getErrorCounter(service),
 			"last_notification": time.Unix(getLastNotificationSentTime(service), 0),
 		}).Info("")
-		resp, err := requests.Get(service.Endpoint)
-		if err != nil || resp.R.StatusCode > 500 {
+
+		if isFailedRequest(service) {
 			log.WithFields(log.Fields{
 				"service_name": service.Name,
 			}).Error("Service is down")

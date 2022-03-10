@@ -1,19 +1,21 @@
 services:
   - name: abc
-    endpoint: http://192.168.10.120
-    method: GET
-    body:
+    endpoint: http://127.0.0.1:8090/json-example
+    method: POST
+    jsonBody: '{"language":"pain"}'
     maxErrorCount: 3
     checkInterval: 4
     consecutiveNotificationDelay: 100
     timeout: 30
+#
+#  - name: evident
+#    endpoint: https://www.evidentbd.com/
+#    method: GET
+#    maxErrorCount: 3
+#    checkInterval: 4
+#    consecutiveNotificationDelay: 100
+#    timeout: 30
 
-  - name: evident
-    endpoint: https://www.evidentbd.com/
-    method: GET
-    maxErrorCount: 3
-    checkInterval: 4
-    consecutiveNotificationDelay: 100
-    timeout: 30
-
-slack_url:
+slackUrl:
+redisHost: 127.0.0.1
+redisPort: 6379
