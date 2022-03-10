@@ -20,8 +20,8 @@ func SendSlackMessage(serviceName string, down bool, errorCount int64) {
 		Blocks []MainBlock `json:"blocks"`
 	}
 
-	downMsg := fmt.Sprintf("*%s* Is Down* :crying_cat_face:\n Blind Cat cannot reach the service and marked it as down.\n*Total missing cats: %d", serviceName, errorCount)
-	upMsg := fmt.Sprintf("*%s* Is Up!* :smile_cat:\n Blind Cat marked the service up after a hectic downtime.", serviceName)
+	downMsg := fmt.Sprintf("*%s Is Down* :crying_cat_face:\n Blind Cat cannot reach the service and marked it as down.\n*Total missing cats: %d*", serviceName, errorCount)
+	upMsg := fmt.Sprintf("*%s Is Up!* :smile_cat:\n Blind Cat marked the service up after a hectic downtime.", serviceName)
 	sendMsg := upMsg
 	if down {
 		sendMsg = downMsg
