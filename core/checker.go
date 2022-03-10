@@ -58,7 +58,7 @@ func notificationDecision(service *structures.Service) {
 	}
 	errorCrossedThreshold := getErrorCounter(service) > service.MaxErrorCount
 	if errorCrossedThreshold && timeCrossedThreshold {
-		//utility.SendSlackMessage(service.Name, true, getErrorCounter(service))
+		utility.SendSlackMessage(service.Name, true, getErrorCounter(service))
 		fmt.Println("----- SEND DOWN NOTIFICATION ----------")
 		updateLastNotificationSentTime(service)
 	}
@@ -67,7 +67,7 @@ func notificationDecision(service *structures.Service) {
 func decideUpMsg(service *structures.Service) {
 	if getErrorCounter(service) > 0 {
 		fmt.Println("------ SENDING UP NOTIFICATION -------------")
-		//utility.SendSlackMessage(service.Name, false, 0)
+		utility.SendSlackMessage(service.Name, false, 0)
 	}
 }
 
