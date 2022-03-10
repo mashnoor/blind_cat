@@ -12,7 +12,7 @@ type Service struct {
 	Endpoint                     string        `yaml:"endpoint"`
 	Method                       string        `yaml:"method"`
 	Body                         string        `yaml:"body"`
-	MaxErrorCount                int64         `yaml:"MaxErrorCount"`
+	MaxErrorCount                int64         `yaml:"maxErrorCount"`
 	CheckInterval                time.Duration `yaml:"checkInterval"`
 	ConsecutiveNotificationDelay int64         `yaml:"consecutiveNotificationDelay"`
 	//SlackUrl                     string        `yaml:"slackUrl"`

@@ -16,8 +16,7 @@ func RedisHGet(serviceName string, param string) int64 {
 	client := settings.GetRedisClient()
 	val, err := client.HGet(context.Background(), serviceName, param).Result()
 	if err != nil {
-		panic(err)
-
+		return 0
 	}
 	i, err := strconv.Atoi(val)
 	if err != nil {

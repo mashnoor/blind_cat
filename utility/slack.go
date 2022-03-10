@@ -6,7 +6,7 @@ import (
 	"github.com/asmcos/requests"
 )
 
-func SendSlackMessage(serviceName string, down bool) {
+func SendSlackMessage(serviceName string, down bool, errorCount int64) {
 
 	type TextBlock struct {
 		Type string `json:"type"`
@@ -20,9 +20,15 @@ func SendSlackMessage(serviceName string, down bool) {
 		Blocks []MainBlock `json:"blocks"`
 	}
 
+	downMsg := fmt.Sprintf("*%s* Is Down* :crying_cat_face:\n Blind Cat cannot reach the service and marked it as down.\n*Total missing cats: %d", serviceName, errorCount)
+	upMsg := fmt.Sprintf("*%s* Is Up!* :smile_cat:\n Blind Cat marked the service up after a hectic downtime.", serviceName)
+	sendMsg := upMsg
+	if down {
+		sendMsg = downMsg
+	}
 	textBlock := TextBlock{
 		Type: "mrkdwn",
-		Text: fmt.Sprintf("*%s* Seems Down* :crying_cat_face:\n Blind Cat cannot reach the service and marked as down :sob:. Send your search team to find the cat.", serviceName),
+		Text: sendMsg,
 	}
 
 	r := MainBlock{Type: "section", Text: textBlock}
