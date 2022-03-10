@@ -37,7 +37,7 @@ func SendSlackMessage(serviceName string, down bool, errorCount int64) {
 
 	jsonStr, err := json.Marshal(slackMsg)
 
-	hookUrl := "https://hooks.slack.com/services/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"
+	hookUrl := ""
 	resp, err := requests.PostJson(hookUrl, string(jsonStr))
 	fmt.Println(string(jsonStr))
 	if err != nil {
